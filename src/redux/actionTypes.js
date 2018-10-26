@@ -1,0 +1,2 @@
+export const INITIALIZE_BOARD = "INITIALIZE_BOARD";
+export const MAKE_MOVE = "MAKE_MOVE";
