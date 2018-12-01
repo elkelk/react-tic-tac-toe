@@ -17,7 +17,7 @@ export const nextPlayer = function(board) {
   return board.filter(x => x).length % 2 == 0 ? 'X' : 'Y'
 }
 
-export const winCheck = function(board) {
+export const baseWinCheck = function(board) {
   const boardEdge = Math.sqrt(board.length)
   const boardCheck = board
   .reduce((acc, v, i) => {

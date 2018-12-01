@@ -7,7 +7,7 @@ import Board from './Board'
 class Game extends React.Component {
   constructor(props) {
     super(props)
-    props.initializeBoard(3)
+    props.initializeBoard(9)
     this.state = {}
   }
 

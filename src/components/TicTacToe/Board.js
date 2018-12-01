@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux"
-import { getBoard } from "../../redux/selectors"
+import { getBoard, getBoardEdge } from "../../redux/selectors"
 import { makeMove } from "../../redux/actions"
 import Square from './Square';
 
@@ -16,30 +16,32 @@ class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
+        key={"square" + i}
         value={this.props.board[i]}
         onClick={() => this.handleClick(i)}
       />
     );
   }
 
+  renderRow(row) {
+    return Array(this.props.boardEdge).fill(null).map((_, i) => {
+      return this.renderSquare(i + row * this.props.boardEdge)
+    })
+  }
+
+  renderBoard() {
+    let boardEdge = Math.sqrt(this.props.board.length)
+    return Array(this.props.boardEdge).fill(null).map((_, i) => {
+      return (<div className="board-row" key={"row" + i}>
+        {this.renderRow(i)}
+      </div>)
+    })
+  }
+
   render() {
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {this.renderBoard()}
       </div>
     )
   }
@@ -47,7 +49,8 @@ class Board extends React.Component {
 
 const mapStateToProps = state => {
   const board = getBoard(state)
-  return { board }
+  const boardEdge = getBoardEdge(state)
+  return { board, boardEdge }
 };
 
 export default connect(mapStateToProps, { makeMove })(Board)
