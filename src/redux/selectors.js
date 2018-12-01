@@ -1,5 +1,6 @@
+import { nextPlayer, winCheck } from "../lib/ticTacToe";
+
 export const getTicTacToeState = store => store.ticTacToe
 export const getBoard = store => getTicTacToeState(store) && getTicTacToeState(store).board
-export const getBoardEdge = store => getTicTacToeState(store) && getTicTacToeState(store).boardEdge
-export const getNextPlayer = store => getTicTacToeState(store) && getTicTacToeState(store).nextPlayer
-export const winner = store => getTicTacToeState(store) && getTicTacToeState(store).winner
+export const getNextPlayer = store => nextPlayer(getBoard(store))
+export const winner = store => winCheck(getBoard(store))
